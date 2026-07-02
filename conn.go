@@ -174,7 +174,7 @@ func (conn *Conn) startTicking() {
 				_ = conn.send(&message.ConnectedPing{PingTime: timestamp()})
 
 				conn.mu.Lock()
-				if t.Sub(*conn.lastActivity.Load()) > time.Second*5+conn.retransmission.rtt(t)*2 {
+				if t.Sub(*conn.lastActivity.Load()) > time.Second*25+conn.retransmission.rtt(t)*2 {
 					// No activity for too long: Start timeout.
 					_ = conn.Close()
 				}
